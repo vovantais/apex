@@ -4,13 +4,13 @@ public with sharing class DatabaseMethodsTrenning {
 	
 	public static void insertNewOpportunity() {
 		
-		List<Opportunity> opportunities = new List<Opportunity>{
-      	new Opportunity(
-      	Name = 'test', 
-      	StageName = 'test2',
-      	CloseDate = Date.today()    
-      	);
-};
+	List<Opportunity> opportunities = new List<Opportunity>{
+		new Opportunity(
+		Name = 'test', 
+		StageName = 'test2',
+		CloseDate = Date.today()    
+		);
+	};
 
 	Database.SaveResult[] opportunitiesList = Database.insert(opportunities, false);
 
