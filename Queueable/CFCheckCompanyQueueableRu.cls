@@ -17,13 +17,6 @@ public class CFCheckCompanyQueueableRu implements Queueable, Database.AllowsCall
         System.enqueueJob(new CFCheckCompanyQueueableRu(new Set<Id>(opportunityIds)));
     }
 
-    /*****************************************************************************
-    *  Name            : processCreditCheck()
-    *  Summary         : launches process of organization checking for Opportunities
-    *  CreatedDate     : 05/12/2019
-    *  Parameters      : -
-    *  Returns         : void
-    ******************************************************************************/
     @TestVisible
     private void processCreditCheck() {
         Opportunity opportunity;
