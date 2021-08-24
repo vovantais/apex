@@ -1,0 +1,6 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name = "data" type = "Array[]" />
+	<aura:handler name = "init" value = "{!this}" action = "{!c.doInit}" />
+    <p>Dynamically created lightning-card</p>
+ 	{!v.data}
+</aura:component>
