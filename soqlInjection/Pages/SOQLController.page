@@ -1,0 +1,12 @@
+<apex:page controller="SOQLController">
+    <apex:form >
+        <apex:outputText value="Enter fieldName" />
+        <br/> 
+      	<apex:inputText value="{!testData}" />   
+        <apex:commandButton value="Query" action="{!query}" /> 
+         <apex:repeat value="{!cont}" var="singleCont"> 
+        {! singleCont.Title}  
+        {! singleCont.Id}     
+    </apex:repeat>
+    </apex:form>
+</apex:page>
