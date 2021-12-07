@@ -1,10 +1,12 @@
 public class TestSharing {
 	
    public static Boolean manualShareRead(Id recordId, Id userOrGroupId) {
+	   
+      if (recordId == null || userOrGroupId == null) return false;
 
       Boolean isShare;
 
-      Questionnaire_result__Share jobShr  = new Questionnaire_result__Share();
+      Questionnaire_result__Share jobShr = new Questionnaire_result__Share();
 
       jobShr.ParentId = recordId;
       jobShr.UserOrGroupId = userOrGroupId;  
