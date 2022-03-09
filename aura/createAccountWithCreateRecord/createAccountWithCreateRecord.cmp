@@ -1,0 +1,7 @@
+<aura:component description="createAccountWithCreateRecord" implements="flexipage:availableForAllPageTypes">
+    <lightning:button
+            label="Create Account"
+            variant="brand"
+            onclick="{!c.createAccount}"
+    />
+</aura:component>
