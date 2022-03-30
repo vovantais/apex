@@ -1,0 +1,20 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <div id="lightning"> Hello world VF page! </div>
+    <div id="testData"> </div>
+    <script>
+      $Lightning.use("c:ltngOutApp", function() {
+        $Lightning.createComponent("c:AuraAndVisualforce", {}, "lightning", function() {
+          $A.eventService.addHandler({ "event": "c:myEvent", "handler" : visualForceFunction});
+        });
+      });
+    </script>
+
+    <script>
+      const visualForceFunction = function(event) {
+        const myEventData = event.getParam("data");
+        const data = document.getElementById('testData');
+        data.innerText = myEventData;
+      };
+    </script>
+</apex:page>

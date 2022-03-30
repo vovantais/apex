@@ -1,0 +1,5 @@
+<aura:component description="AuraAndVisualforce">
+    <div> Hello World aura component!!!! </div>
+    <aura:registerEvent name="myEvent" type="c:myEvent" />
+    <ui:button label="fireEvent to VF" press="{!c.fireEvent}" />
+</aura:component>
