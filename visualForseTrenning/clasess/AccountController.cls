@@ -4,14 +4,50 @@ public with sharing class AccountController {
     public FormParams formParams { get; set; }
     private final static String ERROR = 'Error to insert Account:' ;
 
+    private Integer countTotalRecords;
+    private Integer OffsetSize = 0;
+    private Integer QueryLimit = 10;
+
+    public AccountController() {
+        countTotalRecords = [SELECT COUNT() FROM Account];
+        getAccounts();
+    }
+
+    public void getAccounts() {
+        accounts = [SELECT Id, Name, Active__c, Type, Rating FROM Account WHERE Active__c = 'Yes' LIMIT :QueryLimit OFFSET :OffsetSize];
+    }
+
+    public PageReference next() {
+        OffsetSize += QueryLimit;
+        getAccounts();
+        return null;
+    }
+
+    public PageReference previous() {
+        OffsetSize -= QueryLimit;
+
+        getAccounts();
+        return null;
+    }
+
+    public Boolean getDisablePrevious() {
+        if (OffsetSize > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Boolean getDisableNext() {
+        if (OffsetSize + QueryLimit < countTotalRecords) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     public void initData() {
         this.formParams = new FormParams();
-    }
-
-
-    public AccountController() {
-        accounts = [SELECT Id, Name, Active__c, Type, Rating FROM Account WHERE Active__c = 'Yes'];
     }
 
     public PageReference saveData() {
