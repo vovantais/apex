@@ -1,0 +1,34 @@
+<apex:page id="RemoteObj">
+    <apex:remoteObjects >
+        <apex:remoteObjectModel name="MyTask__c" jsShorthand="MyTask" fields="Name,Id">
+            <apex:remoteObjectField name="Test__c" jsShorthand="Test"/>
+        </apex:remoteObjectModel>
+    </apex:remoteObjects>
+    <script>
+        function getFieldsMyTask() {
+            // Create a new Remote Object
+            const myTask = new SObjectModel.MyTask();
+
+            // Use the Remote Object to query
+            myTask.retrieve({limit: 10}, (err, records, event) => {
+                if (!err) {
+                    let listTask = document.getElementById("listTask");
+                    records.forEach(record => {
+                        let name = record.get("Name");
+                        let id = record.get("Id");
+                        let contact = record.get("Test");
+                        let li = document.createElement("li");
+                        li.append(`${id} --  ${name} ---  ${contact}`);
+                        listTask.append(li);
+                    });
+                }
+            });
+        }
+    </script>
+    <div>
+        <h1>Retrieve data!</h1>
+        <ul id="listTask">
+        </ul>
+        <button onclick="getFieldsMyTask()">Retrieve MyTask__c Obj</button>
+    </div>
+</apex:page>
