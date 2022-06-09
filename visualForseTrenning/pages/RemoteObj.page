@@ -1,10 +1,12 @@
 <apex:page id="RemoteObj">
-    <apex:remoteObjects >
+    <apex:remoteObjects jsNamespace="RemoteObjectModel">
         <apex:remoteObjectModel name="MyTask__c" jsShorthand="MyTask" fields="Name,Id">
             <apex:remoteObjectField name="Test__c" jsShorthand="Test"/>
         </apex:remoteObjectModel>
+        <apex:remoteObjectModel name="Opportunity" fields="Id,Name,CloseDate,StageName"></apex:remoteObjectModel>
     </apex:remoteObjects>
     <script>
+        // Get data
         function getFieldsMyTask() {
             // Create a new Remote Object
             const myTask = new SObjectModel.MyTask();
@@ -21,14 +23,39 @@
                         li.append(`${id} --  ${name} ---  ${contact}`);
                         listTask.append(li);
                     });
+                } else {
+                    alert(err.message);               
                 }
             });
         }
+        
+        // Create data 
+        function createOpp() {    
+        const dt = new Date('2015-12-12');
+        const oppDetails = { Name: 'Test Opp', CloseDate: dt, StageName:'New' };
+        
+        // Create a new Remote Object
+        const opp = new RemoteObjectModel.Opportunity();
+        
+        opp.create(oppDetails, function(err) {
+            if(!err) { 
+                console.log(opp.get('Id')); 
+                alert('success');
+                console.log(err);
+                alert(err.message);
+            }
+            else {
+                console.log(err);
+                alert(err.message);
+            }
+        });
+     }
     </script>
     <div>
         <h1>Retrieve data!</h1>
         <ul id="listTask">
         </ul>
         <button onclick="getFieldsMyTask()">Retrieve MyTask__c Obj</button>
+        <input type="button" onclick="createOpp()" value="Create Opp" />
     </div>
 </apex:page>
