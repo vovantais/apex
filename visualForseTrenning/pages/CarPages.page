@@ -1,0 +1,118 @@
+<apex:page id="CarPages" controller="CarPagesController" docType="html-5.0">
+    <head>
+        <apex:stylesheet value="{!$Resource.carStyle}"/>
+        <apex:includeScript value="{!$Resource.script}"/>
+    </head>
+    <body>
+    <div class="wrapper">
+        <c:headerCustom record="CAR" />
+        <main>
+            <div class="content">
+                <div class="content__car">
+                    <h2 class="content__car-title">Choose the best car for You!</h2>
+                    <apex:form id="carBlock">
+                        <apex:pageBlock>
+                            <div class="content__car-block">
+                                <div class="content__car-slidecontainer">
+                                    <p>Filter by price</p>
+                                    <apex:input id="myRange" value="{!priceCar}" type="range" styleClass="slider"
+                                                html-min="20000" html-max="90000" onmouseover="displayCurrentPrice()"/>
+                                    <p><span class="price"></span></p>
+                                    <apex:commandButton value="Filter" action="{!filterCarByPrice}" reRender="carBlock"
+                                                        id="Filter"
+                                                        styleClass="content__car-bthFilter btn"/>
+                                </div>
+                                <apex:dataList value="{!products}" var="product" styleClass="content__car-items">
+                                    <apex:image url="{!product.urlAttach__c}" width="300" height="170"
+                                                alt="{!product.Name}" styleClass="content__car-item-img"/>
+                                    <div class="content__car-item">
+                                        <p class="content__car-item-name">
+                                            <apex:outputText value="{!product.Name}"/>
+                                        </p>
+                                        <p class="content__car-item-year">
+                                            <apex:outputText value="{0, date, yyyy}">
+                                                <apex:param value="{!product.Year__c}"/>
+                                            </apex:outputText>
+                                        </p>
+                                        <p class="content__car-item-price">
+                                            <apex:outputText value="{!product.Price__c}$"/>
+                                        </p>
+                                        <p class="content__car-item-description">
+                                            <apex:outputText value="{!product.Description__c}"/>
+                                        </p>
+                                    </div>
+                                </apex:dataList>
+                            </div>
+                            <apex:pageBlockButtons>
+                                <apex:commandButton value="Previous" action="{!previous}" rerender="carBlock, formBlock"
+                                                    disabled="{!DisablePrevious}" id="Previous"
+                                                    styleClass="content__car-bthPrevious btn"/>
+                                <apex:commandButton value="Next" action="{!next}" reRender="carBlock, formBlock"
+                                                    disabled="{!DisableNext}" id="Next"
+                                                    styleClass="content__car-bthNext btn"/>
+                            </apex:pageBlockButtons>
+                        </apex:pageBlock>
+                    </apex:form>
+                </div>
+                <div class="content__formOrder">
+                    <h2 class="content__formOrder-title">Order the car!</h2>
+                    <apex:form id="formBlock">
+                        <apex:pageBlock>
+                            <div class="content__formOrder-block">
+                                <p class="content__formOrder-name column">
+                                    <span>First,Last Name </span>
+                                    <apex:inputText value="{!customerName}" id="name" styleClass="name"/>
+                                </p>
+                                <p class="content__formOrder-phone column">
+                                    <span>Phone number </span>
+                                    <apex:inputText value="{!customerPhone}" id="phone"/>
+                                </p>
+                                <p class="content__formOrder-email column">
+                                    <span>Email </span>
+                                    <apex:inputText value="{!customerEmail}" id="email"/>
+                                </p>
+                                <p class="content__formOrder-select column">
+                                    <span>Choose the car</span>
+                                    <apex:selectList value="{!selectedFields}" multiselect="false" size="4"
+                                                     id="carList">
+                                        <apex:selectOptions value="{! carList }"/>
+                                        <apex:actionSupport event="onchange" reRender="values"
+                                                            action="{!passSelectedCarToController}"/>
+                                    </apex:selectList>
+                                </p>
+
+                                <apex:commandLink styleClass="send-button btn" value="Send"
+                                                  onclick="openModal(); return false;" reRender=""/>
+                                <apex:outputPanel styleClass="popup">
+                                    <apex:outputPanel styleClass="customPopup" layout="block">
+                                        <p class="popup-message">Are you sure want to buy this car ?</p>
+                                        <div class="buttons">
+                                            <apex:commandButton action="{!saveData}" value="Send"
+                                                                styleClass="send-button"/>
+                                            <apex:commandLink styleClass="close-modal" value="close"
+                                                              onclick="closeModal(); return false;" reRender=""/>
+                                        </div>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </div>
+                            <div class="content__formOrder-SuccessSend"
+                                 style="{!IF(!isSuccessSend, 'display:none', 'display:block')}">
+                                <div class="content__formOrder-successMessage">
+                                    <div class="content__formOrder-successMessageContent">
+                                        <p class="content__formOrder-successMessageText">
+                                            Thanks for your orders! Wait call manager.
+                                        </p>
+                                        <a href="#" class="content__formOrder-closeSuccessMessage"
+                                           onclick="closeSuccessMessage()">X</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:pageBlock>
+                    </apex:form>
+                </div>
+            </div>
+        </main>
+        <c:footerCustom developer="Vladimir Gedeiko" />
+    </div>
+    </body>
+</apex:page>
