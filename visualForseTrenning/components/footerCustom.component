@@ -1,0 +1,17 @@
+<apex:component>
+    <apex:attribute name="developer" description="" type="String" required="true"/>
+    <footer>
+        <div class="footer">
+            <div class="footer__block">
+                <div class="footer__text">Develop by
+                    <a class="footer__link" target="_blank"
+                       href="https://github.com/vovantais?page=2&tab=repositories">
+                        <img class="footer__logo" src="{!$Resource.gitHub}" alt="github"/>
+                        {!developer}
+                    </a>
+                    . 2022
+                </div>
+            </div>
+        </div>
+    </footer>
+</apex:component>

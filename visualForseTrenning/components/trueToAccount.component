@@ -1,0 +1,9 @@
+<apex:component controller="setTrueInFieldAccount" allowDML="true">
+	<apex:pageMessages />
+	<apex:form style="display:flex;flex-direction:column;justify-content:center;align-items:center;align-content: center;
+	         	 text-align:center;position:absolute;top:0;left:0;bottom:0;rigth:0;width:100%;height:100%; margin:0 auto;">
+		<apex:outputLabel value="Enter name" />
+		<apex:inputText style="margin:10px 0px" value="{!name}" />
+		<apex:commandButton value="Search" action="{!searchAccount}" />
+	</apex:form>
+</apex:component>

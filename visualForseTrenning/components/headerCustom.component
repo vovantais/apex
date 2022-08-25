@@ -1,0 +1,12 @@
+<apex:component id="headerCustom">
+    <apex:attribute name="record" description="" type="String" required="true"/>
+    <header>
+        <div class="header">
+            <h1 class="header__title">{!record}
+                <apex:image url="{!$Resource.carLogo}" width="64" height="64" alt="carLogo"
+                            styleClass="header__title-img"/>
+                SHOP
+            </h1>
+        </div>
+    </header>
+</apex:component>
