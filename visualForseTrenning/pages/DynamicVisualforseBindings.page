@@ -1,0 +1,10 @@
+<apex:page standardController="Case" extensions="DynamicCaseLoader">
+    <apex:form>
+        <apex:repeat value="{!caseFieldList}" var="singleCase">
+            <h2>{!singleCase}</h2>
+            <br/>
+            <apex:inputText value="{!caseDetails[singleCase]}" />
+            <br/><br/>
+        </apex:repeat>
+    </apex:form>
+</apex:page>
